@@ -1,4 +1,4 @@
-.wrapper {
+.input-wrapper {
   float:left;
   width:100%;
   margin: 8px 
@@ -10,7 +10,7 @@ input{
   padding:8px;
   display:block;
   border:none;
-  border-bottom:1px solid #ccc;
+  /* border-bottom:1px solid #ccc; */
   /* width:100%; */
   /* overflow:visible */
 }

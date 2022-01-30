@@ -2,7 +2,7 @@ import { FC } from 'react';
 import './Input.css';
 
 type Props = {
-  onChange?: (value: number | string | null) => void,
+  onChange?: (value: any | undefined) => void,
   label?: string,
   type?: string,
   value?: number | string,
@@ -11,9 +11,14 @@ type Props = {
 
 const Input: FC<Props> = ({ onChange, type, label, value, placeholder }: Props) => {
   return (
-    <div className="wrapper">
+    <div className="input-wrapper">
       <label>{label}</label>
-      <input className="border" type="text" placeholder={placeholder} value={value}/>
+      <input className="border" type="text" 
+        placeholder={placeholder} 
+        value={value}
+        // onChange={(e) => onChange(e.target.value)}
+        onChange={onChange}
+      />
     </div>
   )
 }
