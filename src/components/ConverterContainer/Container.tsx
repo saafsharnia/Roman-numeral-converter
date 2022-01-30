@@ -8,22 +8,23 @@ const Container: FC = () => {
   const [intValue, setIntValue] = useState(0);
 
   const onIntChange = (event: any) => {// TODO: fix any type!!
-    setIntValue(event.target.value);
-    if (event?.target.value > 3999) {
-      alert('The number must be less that 3999!');
+    if (event.target.value > 3999) {
+      alert(`INVALID number!! ${event.target.value} is bigger than 3999!`);
     } else{
-      const newRomanValue = convertIntegerToRoman(event?.target.value);
+      const newRomanValue = convertIntegerToRoman(event.target.value);
       setRomanValue(newRomanValue);
+      setIntValue(event.target.value);
     }
 
   }
 
   const onRomanChange = (event: any) => { // TODO: fix any type!!
     const newIntValue = convertRomanToInteger(event.target.value);
-    setRomanValue(event.target.value);
     if (!newIntValue.validator) { //Means the Roman string is invalid
-      alert('The inserted Roman string is invalid');
+      alert(`"${event.target.value}" is not validate as a Roman numeral`)
+      // alert('The inserted Roman string is invalid');
     } else {
+      setRomanValue(event.target.value);
       setIntValue(newIntValue.res);
     }
   }
@@ -31,7 +32,9 @@ const Container: FC = () => {
 
   return (
     <div className="container">
-      Roman Numeral Convertor
+      <span className='title'>
+        Roman Numeral Convertor
+      </span>
       <div className="wrapper">
         <Input
           label='Roman'
@@ -48,6 +51,8 @@ const Container: FC = () => {
           value={intValue} 
           type='number'
           onChange={onIntChange}
+          // min={0}
+          // max={3999}
         />
       </div>
     </div>

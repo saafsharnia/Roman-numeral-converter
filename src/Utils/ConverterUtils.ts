@@ -1,24 +1,26 @@
 // type Roman = 'M' | 'D'| 'C' | 'X' | 'L' | 'I' | 'V';
 
-export const map: {[key: string]: number} = {
-  'M':  1000,
+export const map: { [key: string]: number } = {
+  'M': 1000,
   'CM': 900,
-  'D':  500,
+  'D': 500,
   'CD': 400,
-  'C':  100,
+  'C': 100,
   'XC': 90,
-  'L':  50,
+  'L': 50,
   'XL': 40,
-  'X':  10,
+  'X': 10,
   'IX': 9,
-  'V':  5,
+  'V': 5,
   'IV': 4,
-  'I':  1,
+  'I': 1,
 }
 
 export const convertRomanToInteger = (string: string) => {
   let res = 0;
   var validator = true;
+  // Improvement: Add a validation check (a regex pattern), so that not allowing more than 3 same characters in sequence!
+  // ex: CVIIII is invalid!! But XXXIX is valid (it's 39), VV is invalid!
 
   const stringArray: Array<string> = string.toString().split('');
   for (let i = 0; i < stringArray.length; i++) {
@@ -40,9 +42,8 @@ export const convertRomanToInteger = (string: string) => {
     } else if (stringArray[i] === "C" && stringArray[i + 1] === "M") {
       res += 900;
       i++;
-    } else if ((i+1 < stringArray.length && map[stringArray[i]] < map[stringArray[i+1]]) || 
-      !map[stringArray[i]])  
-    {
+    } else if ((i + 1 < stringArray.length && map[stringArray[i]] < map[stringArray[i + 1]]) ||
+      !map[stringArray[i]]) {
       // The string is invalid
       validator = false;
     }
@@ -50,12 +51,12 @@ export const convertRomanToInteger = (string: string) => {
       res += map[stringArray[i]];
     }
   }
-  return {res, validator};
+  return { res, validator };
 }
 
 export const convertIntegerToRoman = (num: number) => {
   let result = '';
-  
+
   for (let key in map) {
     let timeOfRepeat = Math.floor(num / map[key]);
     while (timeOfRepeat--) {
@@ -66,6 +67,6 @@ export const convertIntegerToRoman = (num: number) => {
       break;
     }
   }
-  
+
   return result;
 }
