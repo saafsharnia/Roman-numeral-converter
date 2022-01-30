@@ -12,7 +12,8 @@ const Container: FC = () => {
     const value = parseInt(event.target.value)
     if (!numberValidator(value)) {
       alert(`INVALID number!! ${event.target.value} is bigger than 3999!`);
-    } else{
+    } else {
+      // If the value is valid, Change both input values
       const newRomanValue = convertIntegerToRoman(value);
       setRomanValue(newRomanValue);
       setIntValue(value);
@@ -25,6 +26,7 @@ const Container: FC = () => {
     if (!newIntValue.validator) { //Means the Roman string is invalid
       alert(`"${event.target.value}" is not valid as a Roman numeral`);
     } else {
+      // If the value is valid, Change both input values
       setRomanValue(value);
       setIntValue(newIntValue.res);
     }
