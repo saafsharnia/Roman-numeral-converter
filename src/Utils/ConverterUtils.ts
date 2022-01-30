@@ -54,6 +54,10 @@ export const convertRomanToInteger = (string: string) => {
   return { res, validator };
 }
 
+export const numberValidator = (num: number) => {
+  return (0 < num && num < 4000)
+}
+
 export const convertIntegerToRoman = (num: number) => {
   let result = '';
 

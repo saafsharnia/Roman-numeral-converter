@@ -1,30 +1,31 @@
 import React, { useState, FC } from 'react';
 import './Container.css';
 import Input from '../Input/Input';
-import { convertRomanToInteger, convertIntegerToRoman } from '../../Utils/ConverterUtils';
+import { convertRomanToInteger, convertIntegerToRoman,
+  numberValidator } from '../../Utils/ConverterUtils';
 
 const Container: FC = () => {
   const [romanValue, setRomanValue] = useState('');
   const [intValue, setIntValue] = useState(0);
 
-  const onIntChange = (event: any) => {// TODO: fix any type!!
-    if (event.target.value > 3999) {
+  const onIntChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = parseInt(event.target.value)
+    if (!numberValidator(value)) {
       alert(`INVALID number!! ${event.target.value} is bigger than 3999!`);
     } else{
-      const newRomanValue = convertIntegerToRoman(event.target.value);
+      const newRomanValue = convertIntegerToRoman(value);
       setRomanValue(newRomanValue);
-      setIntValue(event.target.value);
+      setIntValue(value);
     }
-
   }
 
-  const onRomanChange = (event: any) => { // TODO: fix any type!!
-    const newIntValue = convertRomanToInteger(event.target.value);
+  const onRomanChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const value = event.target.value.toUpperCase();
+    const newIntValue = convertRomanToInteger(value);
     if (!newIntValue.validator) { //Means the Roman string is invalid
-      alert(`"${event.target.value}" is not validate as a Roman numeral`)
-      // alert('The inserted Roman string is invalid');
+      alert(`"${event.target.value}" is not valid as a Roman numeral`);
     } else {
-      setRomanValue(event.target.value);
+      setRomanValue(value);
       setIntValue(newIntValue.res);
     }
   }
@@ -37,6 +38,7 @@ const Container: FC = () => {
       </span>
       <div className="wrapper">
         <Input
+          id='roman-input'
           label='Roman'
           value={romanValue} 
           type='string'
@@ -47,12 +49,11 @@ const Container: FC = () => {
           &#8646;
         </span>
         <Input
+          id='number-input'
           label='Number'
           value={intValue} 
           type='number'
           onChange={onIntChange}
-          // min={0}
-          // max={3999}
         />
       </div>
     </div>
